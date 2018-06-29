@@ -9,8 +9,14 @@ class Player {
 
 const hero = new Player()
 
+
+// creating a name for your hero
 $('.name').on('click', () => {
 	const $inputVal = $('input').val();
-	$('h1').text($inputVal)
+	// not sure what to do here
+	$('').text($inputVal)
 	timer();
 });
+
+
+
