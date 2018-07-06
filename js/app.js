@@ -74,6 +74,9 @@ const game = {
 		$('#player').css('left', '400px');
 		$('#player').css('top', '200px');
 
+		// display hero hitpoints
+		
+
 		// display name for enemy
 		const $displayEnemyName = $('<h2></h2>');
 	    $('.enemy').append($displayEnemyName);
@@ -88,6 +91,8 @@ const game = {
 		$displayEnemyName.css('color', 'white');
 		$('.enemy').css('position', 'relative');
 		$('.enemy').css('top', '30px');
+
+
 
 	    // keyboard display
 	    $('.display').show()
@@ -175,19 +180,19 @@ const game = {
     		// update value at that index in input quote array to be true
     		this.inputQuoteArray[falseIndex] = true
     		this.printSentence()
-    	}
-
-
-
-
-    }
-      	// for (let i = 0; i < this.printSentence.length; i++) {
-      	// 	if (this.printSentence === typ)
-      	
-	// get the key pressed from e
-	// pass that (1 character long string) to your check function
+    		
+    	} 
+    	// if(this.inputQuoteArray === true) {
+    	// 	$('.display').empty();
+    	// 	this.randomQuote();
+    	// }
+    }  	
 
 }
+     	
+
+
+		
 
 $(document).on('keypress', (event) => {
 	// get the letter from e
