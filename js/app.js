@@ -23,7 +23,7 @@ console.log('Last Fantasy');
 
 // 6 add listeners start with keydown simply working at all
 
-// 7 write checkUserInput method and make keydown listener call it
+// 7 write checkUserInput method in the game objecgt and make keydown listener call it
 // remember: checkUserInput method will use and update properties
 // remember: checkUserInput method will call printSentence() to reflect those updates
 
@@ -39,7 +39,7 @@ console.log('Last Fantasy');
 
 // starting game
 const game = {
-	realQuoteArray: [], // initial value -- later this will be changed
+	realQuoteArray: [], // initial value -- the sentence we're on, broken into letters
 	inputQuoteArray: [], // starts out all F, as user types correct letters it is changed to true
 	start() {
 		// creating name for Player
@@ -102,21 +102,21 @@ const game = {
 	// pull random quote for Player to type
 	randomQuote() {
 		const random = Math.floor(Math.random() * list.length);
-		// get array of characters for a string
 
 		const sentence = list[random];
 		console.log(sentence)
-		// TODO item 1: add quote array to properties in game object above
 
 
+
+		// set properties for this sentence in game object above
 		this.realQuoteArray = sentence.split("")
-		// array of booleans
+	
 
-		// for (let i = 0; i < printArray.length; i++)
-		// 	if (this.realQuoteArray === true) {
-		// 	} if (this.inputQuoteArray === false) {
-
-		// 	}
+		// add a false to the input quote array for each letter in the quote
+		for(let i = 0; i < this.realQuoteArray.length; i++) {
+			this.inputQuoteArray.push(false);
+		}
+	
 
 		this.printSentence()
 
@@ -129,6 +129,10 @@ const game = {
 			const $span = $('<span></span>');
 			$('.display').append($span);
 			$span.text(this.realQuoteArray[i]);
+
+			// add logic here to make background green based on boolean array
+			// if the value at this index ion the bool array is true
+
 			$span.css('font-family', 'Verdana', 'sans-serif');
 		    $span.css('text-shadow', '2px 2px #212421', '1px 1px #212021');
 			$span.css('font-weight', 'normal');
@@ -139,7 +143,38 @@ const game = {
     },
     
     
-     
+    checkUserInput(letter) {
+    	console.log(letter, "this is checkForInput");
+ 
+ 		//// we need to figure out which letter to compare to user input ///
+    	let falseIndex = 0 // this will be the index of the first false
+    	let foundFalse = false // this keeps track of whether or not we have found false
+
+    	// scan through the boolean array for the index of the first false value
+    	for(let i = 0; i < this.inputQuoteArray.length; i++) {
+
+    		// if this element is false AND you haven't already found a false
+    		if(this.inputQuoteArray[i] == false && foundFalse == false) {
+    			falseIndex = i;
+    			foundFalse = true;
+    		} 
+    	}
+
+    	// falseIndex is now the index of the letter the user should type
+    	// now we need to get the letter at that index in realQuoteArray
+    	const firstLetter = this.realQuoteArray[falseIndex]
+
+    	// if user input is that letter
+    	if(firstLetter === letter) {
+    		// update value at that index in input quote array to be true
+    		this.inputQuoteArray[falseIndex] = true
+    		console.log('its working')
+    	}
+
+
+
+
+    }
       	// for (let i = 0; i < this.printSentence.length; i++) {
       	// 	if (this.printSentence === typ)
       	
@@ -148,12 +183,15 @@ const game = {
 
 }
 
-    $('document').on('keydown', (e) => {
-      	console.log('typing')
-    })
+$(document).on('keypress', (event) => {
+	// get the letter from e
+	// console.log() the letter make sure it's what you think
+	// call the check input method, passing in that letter
+	game.checkUserInput(event.key) 
+})
 
 const list =
-	["Too much hope is the opposite of despair... an overpowering love may consume you in the end.", "You look like a bear wearing a marshmallow.", "Sephiroth's strength is unreal. He is far stronger in reality than any story you might have heard about him."]
+	["Too much hope is the opposite of despair... an overpowering love may consume you in the end.", "You look like a bear wearing a marshmallow.", "Sephiroth's strength is unreal. He is far stronger in reality than any story you might have heard about him.", "The execution may have been unsuccessful, but your death by falling from here and crashing into the water below still might be pretty exciting.", "Strength without determination means nothing, and determination without strength is equally useless.", "I was frozen in time, but I feel as if my time is just beginning.", "Looking up at the sky too much makes you lose perspective", "Only death awaits you all. But do not fear. For it is through death that a new spirit energy is born. Soon, you will live again as a part of me.", "I'm not sympathizing with Barret! He never should've trusted Shinra, Inc.", "Don't fight here! You'll ruin the flowers!", "Words aren't the only way to tell someone how you feel."]
 
 // hidden from the start menu
 
@@ -165,9 +203,13 @@ $('.display').hide()
 // add listeners here -- 7-5-2018 1230mp
 
 
+// document.addEventListener('keydown', game.checkLetter, false);
+
+
 
 // functions
 game.start()
+
 // game.printSentence();
 
 // $('.display').text(list[random])
@@ -214,6 +256,18 @@ const timer = () => {
   }, 1000)
 };
 
-// document.addEventListener('keydown', typing, false);
 
 // ask about 
+		// const checkLetter = (e) => {
+		// 	if(e.keyDown === true){
+		// 		let i = 0;
+		// 		while(i <= realWord.length-1){
+		// 			currentLetter = realWord[i];
+		// 			if(e.keydown === realWord[i]){
+		// 				letterCheckerWord[i] = true;
+		// 				i++
+		// 			}
+		// 		}
+		// 		console.log('typing words')
+		// 	}
+		// }
