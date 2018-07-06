@@ -125,6 +125,9 @@ const game = {
     printSentence() {
 		// add spans to screen - 1 per letter
 
+		// make the #display div be empty
+		$('.display').empty()
+
 		for (let i = 0; i < this.realQuoteArray.length; i++) {
 			const $span = $('<span></span>');
 			$('.display').append($span);
@@ -132,6 +135,9 @@ const game = {
 
 			// add logic here to make background green based on boolean array
 			// if the value at this index ion the bool array is true
+			if(this.inputQuoteArray[i] === true) {
+				$span.css('background-color', "green")
+			}
 
 			$span.css('font-family', 'Verdana', 'sans-serif');
 		    $span.css('text-shadow', '2px 2px #212421', '1px 1px #212021');
@@ -168,7 +174,7 @@ const game = {
     	if(firstLetter === letter) {
     		// update value at that index in input quote array to be true
     		this.inputQuoteArray[falseIndex] = true
-    		console.log('its working')
+    		this.printSentence()
     	}
 
 
